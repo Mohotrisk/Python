@@ -26,10 +26,10 @@ public class UsuarioRepositoryTest {
 
 	@BeforeAll
 	void start() {
-		usuarioRepository.save(new Usuario(0L, "João da Silva", "joao@email.com.br", "13465278", ""));
-		usuarioRepository.save(new Usuario(0L, "Manuela da Silva", "manuela@email.com.br", "13465278",""));
-		usuarioRepository.save(new Usuario(0L, "Adriana da Silva", "adriana@email.com.br", "13465278",""));
-		usuarioRepository.save(new Usuario(0L, "Paulo Antunes", "paulo@email.com.br", "13465278",""));
+		usuarioRepository.save(new Usuario(0L, "Manu Rosa", "manug@email.com.br", "654321", "  "));
+		usuarioRepository.save(new Usuario(0L, "Andre Rosa", "andremart@email.com.br", "765432"," "));
+		usuarioRepository.save(new Usuario(0L, "Rafa Rosa", "rafarosa@email.com.br", "876543",""));
+		usuarioRepository.save(new Usuario(0L, "Paul Alien", "paulalien@email.com.br", "098765",""));
 
 	}
 	
@@ -38,8 +38,8 @@ public class UsuarioRepositoryTest {
 	
 	public void deveRetornarUmUsuario() {
 		
-		Optional<Usuario> usuario = usuarioRepository.findByUsuario("joao@email.com.br");
-		assertTrue(usuario.get().getUsuario().equals("joao@email.com.br"));
+		Optional<Usuario> usuario = usuarioRepository.findByUsuario("moises@email.com.br");
+		assertTrue(usuario.get().getUsuario().equals("moises@email.com.br"));
 		
 	}
 	
@@ -47,19 +47,12 @@ public class UsuarioRepositoryTest {
 	@DisplayName("Retorna 3 usuarios")
 	public void deveRetornarTresUsuarios() {
 		
-		List<Usuario> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
+		List<Usuario> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Rosa");
 		assertEquals(3, listaDeUsuarios.size());
-		assertTrue(listaDeUsuarios.get(0).getNome().equals("João da Silva"));
+		assertTrue(listaDeUsuarios.get(0).getNome().equals("Manu Rosa"));
+		assertTrue(listaDeUsuarios.get(1).getNome().equals("Andre Rosa"));	
+		assertTrue(listaDeUsuarios.get(2).getNome().equals("Rafa Rosa"));
 		
 	}
-	
-	@AfterAll
-	public void end() {
-		
-		usuarioRepository.deleteAll();
-		
-	}
-	
-	
 
 }

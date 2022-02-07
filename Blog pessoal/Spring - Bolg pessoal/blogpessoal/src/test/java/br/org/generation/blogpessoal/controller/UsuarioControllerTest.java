@@ -39,7 +39,7 @@ public class UsuarioControllerTest {
 	public void deveCriarUmUsuario() {
 		
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, 
-				"Paulo Antunes", "paulo_antunes@email.com.br", "13465278", ""));
+				"Jose Maria", "josemaria@email.com.br", "123456", "  "));
 		
 		ResponseEntity<Usuario> resposta = testRestTemplate
 				.exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao, Usuario.class);
@@ -54,10 +54,10 @@ public class UsuarioControllerTest {
 	public void naoDeveDuplicarUsuario() {
 
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Maria da Silva", "maria_silva@email.com.br", "13465278",""));
+			"Maria Jose", "mariajose@email.com.br", "123456","  "));
 
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, 
-			"Maria da Silva", "maria_silva@email.com.br", "13465278",""));
+			"Maria Jose", "mariajose@email.com.br", "123456","  "));
 
 		ResponseEntity<Usuario> resposta = testRestTemplate
 			.exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao, Usuario.class);
@@ -71,10 +71,10 @@ public class UsuarioControllerTest {
 	public void deveAtualizarUmUsuario() {
 
 		Optional<Usuario> usuarioCreate = usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Juliana Andrews", "juliana_andrews@email.com.br", "juliana123", ""));
+			"Fran Ken", "franken@email.com.br", "fran12", "  "));
 
 		Usuario usuarioUpdate = new Usuario(usuarioCreate.get().getId(), 
-			"Juliana Andrews Ramos", "juliana_ramos@email.com.br", "juliana123", "");
+			"Fran Ken", "franken@email.com.br", "fran12", "  ");
 		
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(usuarioUpdate);
 
@@ -93,10 +93,10 @@ public class UsuarioControllerTest {
 	public void deveMostrarTodosUsuarios() {
 
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Sabrina Sanches", "sabrina_sanches@email.com.br", "sabrina123", ""));
+			"Juan Pablo", "juanpablo@email.com.br", "ruan12", "  "));
 		
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Ricardo Marques", "ricardo_marques@email.com.br", "ricardo123",""));
+			"Romeu sales", "romeusales@email.com.br", "romeu1","  "));
 
 		ResponseEntity<String> resposta = testRestTemplate
 			.withBasicAuth("root", "root")
@@ -105,25 +105,4 @@ public class UsuarioControllerTest {
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 	}
 	
-	@Test
-	@Order(5)
-	@DisplayName("Listar todos os Usuários pelo Id")
-	public void deveMostrarTodosUsuariosPeloId() {
-
-		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Sabrina Sanches", "sabrina_sanches@email.com.br", "sabrina123", ""));
-		
-		usuarioService.cadastrarUsuario(new Usuario(1L, 
-			"Ricardo Marques", "ricardo_marques@email.com.br", "ricardo123",""));
-
-		ResponseEntity<String> resposta = testRestTemplate
-			.withBasicAuth("root", "root")
-			.exchange("/usuarios/1", HttpMethod.GET, null, String.class);
-
-		assertEquals(HttpStatus.OK, resposta.getStatusCode());
-		
-	}
-
-	
-
 }

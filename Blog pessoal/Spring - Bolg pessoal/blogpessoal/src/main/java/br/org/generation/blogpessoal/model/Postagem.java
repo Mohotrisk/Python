@@ -19,13 +19,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
-@Entity // informa que vou criar uma tabela da minha classe
-@Table(name = "tb_postagens") // create table tb_postagens
+@Entity 
+@Table(name = "tb_postagens") 
 
 public class Postagem {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) // é o autoincrement e pk da tb
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Long id;
 	
 	@NotBlank(message = "O atributo título é obrigatório! ")
